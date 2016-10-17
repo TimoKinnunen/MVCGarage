@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using MVCGarage.DAL;
+using MVCGarage.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MVCGarage.DAL;
-using MVCGarage.Models;
 
 namespace MVCGarage.Controllers
 {
@@ -51,6 +48,11 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
+                vehicle.StartParkingTime = DateTime.Now;
+                //test
+                //vehicle.EndParkingTime = DateTime.Now.AddHours(1);
+                //vehicle.ParkingTime = vehicle.EndParkingTime - vehicle.StartParkingTime;
+                //test
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");

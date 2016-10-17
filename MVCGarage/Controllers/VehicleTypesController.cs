@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using MVCGarage.DAL;
+using MVCGarage.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using MVCGarage.DAL;
-using MVCGarage.Models;
 
 namespace MVCGarage.Controllers
 {

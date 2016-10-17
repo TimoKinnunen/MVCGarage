@@ -127,7 +127,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Controllers\VehicleTypesController.cs" />
     <Compile Include="DAL\MVCGarageDbContext.cs" />
@@ -137,6 +136,10 @@
     <Compile Include="Migrations\201610171317426_Initial.cs" />
     <Compile Include="Migrations\201610171317426_Initial.Designer.cs">
       <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610171503495_TimeSpan added.cs" />
+    <Compile Include="Migrations\201610171503495_TimeSpan added.Designer.cs">
+      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -189,9 +192,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Vehicles\Create.cshtml" />
     <Content Include="Views\Vehicles\Delete.cshtml" />
     <Content Include="Views\Vehicles\Details.cshtml" />
@@ -215,6 +215,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201610171317426_Initial.resx">
       <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610171503495_TimeSpan added.resx">
+      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

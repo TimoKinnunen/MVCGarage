@@ -24,7 +24,7 @@ namespace MVCGarage.Models
         public DateTime? EndParkingTime { get; set; }
 
         [Display(Name = "Parking time")]
-        public DateTimeOffset? ParkingTime { get; set; }
+        public TimeSpan? ParkingTime { get; set; }
 
         [Display(Name = "Number of wheels")]
 
