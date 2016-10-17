@@ -18,11 +18,7 @@ namespace MVCGarage.Models
         public string Color { get; set; }
 
         [Display(Name = "Checked in")]
-        public DateTime? StartParkingTime
-        {
-            get { return startParkingTime; }
-            set { startParkingTime = DateTime.Now; }
-        }
+        public DateTime? StartParkingTime { get; set; }
 
         [Display(Name = "Checked out")]
         public DateTime? EndParkingTime { get; set; }
@@ -35,8 +31,5 @@ namespace MVCGarage.Models
         public int? NumberOfWheels { get; set; }
         [Display(Name = "Brand and model")]
         public string BrandAndModel { get; set; } //Saab 96,Volvo V70
-
-        //backing field
-        private DateTime startParkingTime;
     }
 }

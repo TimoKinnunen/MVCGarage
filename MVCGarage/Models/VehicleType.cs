@@ -1,15 +1,12 @@
-﻿namespace MVCGarage.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MVCGarage.Models
 {
     public class VehicleType
     {
+        [Key]
+        public int Id { get; set; }
+        [Required]
         public string Type { get; set; }
-
-        //constructor
-        public VehicleType(string type)
-        {
-            Type = type;
-        }
-
-        private string type; // backing field for Type
     }
 }
