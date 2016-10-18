@@ -1,12 +1,13 @@
-﻿using MVCGarage.DAL;
-using MVCGarage.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using MVCGarage.DAL;
+using MVCGarage.Models;
 
 namespace MVCGarage.Controllers
 {
@@ -17,10 +18,7 @@ namespace MVCGarage.Controllers
         // GET: VehicleTypes
         public ActionResult Index()
         {
-            // Return a list of all vehicle types ordered by Type
-            var list = db.VehicleTypes.ToList()
-                .OrderBy(item => item.Type);
-            return View(list);
+            return View(db.VehicleTypes.ToList());
         }
 
         // GET: VehicleTypes/Details/5
@@ -54,16 +52,8 @@ namespace MVCGarage.Controllers
             if (ModelState.IsValid)
             {
                 db.VehicleTypes.Add(vehicleType);
-                try
-                {
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (DbUpdateException e)
-                {
-                    // Probably a violation of unique index for column Type
-                    ModelState.AddModelError("Type", "Could not save to database. Probably because this vehicle type already exists.");
-                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
             return View(vehicleType);
@@ -94,16 +84,8 @@ namespace MVCGarage.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(vehicleType).State = EntityState.Modified;
-                try
-                {
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                catch (DbUpdateException e)
-                {
-                    // Probably a violation of unique index for column Type
-                    ModelState.AddModelError("Type", "Could not save to database. Probably because this vehicle type already exists.");
-                }
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(vehicleType);
         }
@@ -130,16 +112,8 @@ namespace MVCGarage.Controllers
         {
             VehicleType vehicleType = db.VehicleTypes.Find(id);
             db.VehicleTypes.Remove(vehicleType);
-            try
-            {
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch (DbUpdateException e)
-            {
-                // Probably violation of referential integrity
-                return RedirectToAction("Delete/" + id);
-            }
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
