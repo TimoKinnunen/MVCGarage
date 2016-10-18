@@ -23,12 +23,22 @@ namespace MVCGarage.Models
         [Display(Name = "Checked out")]
         public DateTime? EndParkingTime { get; set; }
 
-        [Display(Name = "Parking time")]
+        [Display(Name = "Parking time hh:mm")]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan? ParkingTime { get; set; }
 
-        [Display(Name = "Number of wheels")]
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [Display(Name = "Parking cost per hour")]
+        public int? ParkingCostPerHour { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:c}")]
+        [Display(Name = "Parking cost")]
+        public int? ParkingCost { get; set; }
+
+        [Range(1, 10, ErrorMessage = "Value for number of wheels must be between 1 and 10.")]
+        [Display(Name = "Number of wheels")]
         public int? NumberOfWheels { get; set; }
+
         [Display(Name = "Brand and model")]
         public string BrandAndModel { get; set; } //Saab 96,Volvo V70
     }
