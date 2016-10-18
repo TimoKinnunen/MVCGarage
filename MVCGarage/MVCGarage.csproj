@@ -133,13 +133,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610171317426_Initial.cs" />
-    <Compile Include="Migrations\201610171317426_Initial.Designer.cs">
-      <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201610180844264_Init.cs" />
+    <Compile Include="Migrations\201610180844264_Init.Designer.cs">
+      <DependentUpon>201610180844264_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610171503495_TimeSpan added.cs" />
-    <Compile Include="Migrations\201610171503495_TimeSpan added.Designer.cs">
-      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
+    <Compile Include="Migrations\201610180948305_Test.cs" />
+    <Compile Include="Migrations\201610180948305_Test.Designer.cs">
+      <DependentUpon>201610180948305_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -213,11 +213,11 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610171317426_Initial.resx">
-      <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610180844264_Init.resx">
+      <DependentUpon>201610180844264_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610171503495_TimeSpan added.resx">
-      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610180948305_Test.resx">
+      <DependentUpon>201610180948305_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
