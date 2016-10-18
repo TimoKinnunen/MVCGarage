@@ -17,7 +17,7 @@ namespace MVCGarage.Migrations
               p => p.Type,
               new VehicleType { Type = "Passenger car" },
               new VehicleType { Type = "Truck" },
-              new VehicleType { Type = "Buss" }
+              new VehicleType { Type = "Bus" }
             );
 
             context.Vehicles.AddOrUpdate(

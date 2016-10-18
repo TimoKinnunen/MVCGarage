@@ -138,8 +138,9 @@ namespace MVCGarage.Controllers
             catch (DbUpdateException e)
             {
                 // Probably violation of referential integrity
-                return RedirectToAction("Delete/" + id);
-            }
+                ViewBag.ErrorMessage = "Could not delete this vehicle type. Probably because some vehicle has this type.";
+                            }
+            return View(vehicleType);
         }
 
         protected override void Dispose(bool disposing)

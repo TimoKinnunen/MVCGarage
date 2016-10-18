@@ -133,14 +133,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610180844264_Init.cs" />
-    <Compile Include="Migrations\201610180844264_Init.Designer.cs">
-      <DependentUpon>201610180844264_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610180948305_Test.cs" />
-    <Compile Include="Migrations\201610180948305_Test.Designer.cs">
-      <DependentUpon>201610180948305_Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
@@ -211,14 +203,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610180844264_Init.resx">
-      <DependentUpon>201610180844264_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610180948305_Test.resx">
-      <DependentUpon>201610180948305_Test.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
