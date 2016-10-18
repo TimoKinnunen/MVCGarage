@@ -1,6 +1,4 @@
-﻿using MVCGarage.Models;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
+﻿using System.Data.Entity;
 
 namespace MVCGarage.DAL
 {

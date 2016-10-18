@@ -44,15 +44,16 @@ namespace MVCGarage.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,Color,StartParkingTime,EndParkingTime,ParkingTime,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,Color,StartParkingTime,EndParkingTime,ParkingTime,ParkingCostPerHour,ParkingCost,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
-                vehicle.StartParkingTime = DateTime.Now;
-                //test
-                //vehicle.EndParkingTime = DateTime.Now.AddHours(1);
-                //vehicle.ParkingTime = vehicle.EndParkingTime - vehicle.StartParkingTime;
-                //test
+                //time when checked in
+                //vehicle.StartParkingTime = DateTime.Now;
+                vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
+                vehicle.ParkingCostPerHour = 60; //60 SEK/hour
+                //time when checked in
+
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -81,7 +82,7 @@ namespace MVCGarage.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegistrationNumber,Color,StartParkingTime,EndParkingTime,ParkingTime,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegistrationNumber,Color,StartParkingTime,EndParkingTime,ParkingTime,ParkingCostPerHour,ParkingCost,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -107,15 +108,38 @@ namespace MVCGarage.Controllers
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
+        // POST: VehicleTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Vehicle vehicle = db.Vehicles.Find(id);
-            db.Vehicles.Remove(vehicle);
+            //db.Vehicles.Remove(vehicle);
+
+            vehicle.EndParkingTime = DateTime.Now;
+            vehicle.ParkingTime = vehicle.EndParkingTime - vehicle.StartParkingTime;
+
+            vehicle.ParkingCost = vehicle.ParkingCostPerHour * (int)((TimeSpan)vehicle.ParkingTime).TotalMinutes / 60;
+
+            db.Entry(vehicle).State = EntityState.Modified;
+
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // GET: Vehicles/Kvitto/5
+        public ActionResult Kvitto(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Vehicle vehicle = db.Vehicles.Find(id);
+            if (vehicle == null)
+            {
+                return HttpNotFound();
+            }
+            return View(vehicle);
         }
 
         protected override void Dispose(bool disposing)

@@ -133,13 +133,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610171317426_Initial.cs" />
-    <Compile Include="Migrations\201610171317426_Initial.Designer.cs">
-      <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201610180958372_Initial.cs" />
+    <Compile Include="Migrations\201610180958372_Initial.Designer.cs">
+      <DependentUpon>201610180958372_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610171503495_TimeSpan added.cs" />
-    <Compile Include="Migrations\201610171503495_TimeSpan added.Designer.cs">
-      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
+    <Compile Include="Migrations\201610181003014_Parking cost per hour.cs" />
+    <Compile Include="Migrations\201610181003014_Parking cost per hour.Designer.cs">
+      <DependentUpon>201610181003014_Parking cost per hour.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
@@ -192,16 +192,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Vehicles\Create.cshtml" />
-    <Content Include="Views\Vehicles\Delete.cshtml" />
-    <Content Include="Views\Vehicles\Details.cshtml" />
-    <Content Include="Views\Vehicles\Edit.cshtml" />
-    <Content Include="Views\Vehicles\Index.cshtml" />
     <Content Include="Views\VehicleTypes\Create.cshtml" />
     <Content Include="Views\VehicleTypes\Delete.cshtml" />
     <Content Include="Views\VehicleTypes\Details.cshtml" />
     <Content Include="Views\VehicleTypes\Edit.cshtml" />
     <Content Include="Views\VehicleTypes\Index.cshtml" />
+    <Content Include="Views\Vehicles\Create.cshtml" />
+    <Content Include="Views\Vehicles\Delete.cshtml" />
+    <Content Include="Views\Vehicles\Details.cshtml" />
+    <Content Include="Views\Vehicles\Edit.cshtml" />
+    <Content Include="Views\Vehicles\Index.cshtml" />
+    <Content Include="Views\Vehicles\Kvitto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -213,11 +214,11 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610171317426_Initial.resx">
-      <DependentUpon>201610171317426_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610180958372_Initial.resx">
+      <DependentUpon>201610180958372_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610171503495_TimeSpan added.resx">
-      <DependentUpon>201610171503495_TimeSpan added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610181003014_Parking cost per hour.resx">
+      <DependentUpon>201610181003014_Parking cost per hour.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

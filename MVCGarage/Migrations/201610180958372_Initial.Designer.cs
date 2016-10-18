@@ -7,13 +7,13 @@ namespace MVCGarage.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class TimeSpanadded : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(TimeSpanadded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610171503495_TimeSpan added"; }
+            get { return "201610180958372_Initial"; }
         }
         
         string IMigrationMetadata.Source
