@@ -1,9 +1,7 @@
 ﻿using MVCGarage.DAL;
 using MVCGarage.Models;
-using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -59,7 +57,7 @@ namespace MVCGarage.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                catch (DbUpdateException e)
+                catch (DbUpdateException)
                 {
                     // Probably a violation of unique index for column Type
                     ModelState.AddModelError("Type", "Could not save to database. Probably because this vehicle type already exists.");
@@ -99,7 +97,7 @@ namespace MVCGarage.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                catch (DbUpdateException e)
+                catch (DbUpdateException)
                 {
                     // Probably a violation of unique index for column Type
                     ModelState.AddModelError("Type", "Could not save to database. Probably because this vehicle type already exists.");
@@ -135,7 +133,7 @@ namespace MVCGarage.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 // Probably violation of referential integrity
                 ViewBag.ErrorMessage = "Could not delete this vehicle type. Probably because some vehicle has this type.";

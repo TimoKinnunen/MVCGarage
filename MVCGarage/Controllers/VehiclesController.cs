@@ -28,7 +28,7 @@ namespace MVCGarage.Controllers
 
             var vehiclesToView = db.Vehicles
                 .OrderBy(v => v.StartParkingTime)
-                .Select (v =>  new VehicleOverview
+                .Select(v => new VehicleOverview
                 {
                     Id = v.Id,
                     RegNo = v.RegistrationNumber,
@@ -73,14 +73,24 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                //time when checked in
-                //vehicle.StartParkingTime = DateTime.Now;
-                vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
-                vehicle.ParkingCostPerHour = 60; //60 SEK/hour
-                //time when checked in
+                Vehicle existingVehicle = db.Vehicles.FirstOrDefault(v => v.RegistrationNumber == vehicle.RegistrationNumber);
+                if (existingVehicle != null)
+                {
+                    //vehicle with same registration number exists in database
+                    ViewBag.ErrorMessage = "Could not add this registration number " + vehicle.RegistrationNumber + ". A vehicle with same registration number is in garage.";
+                    return View(vehicle);
+                }
+                else
+                {
+                    //time when checked in
+                    //vehicle.StartParkingTime = DateTime.Now;
+                    vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
+                    vehicle.ParkingCostPerHour = 60; //60 SEK/hour
+                                                     //time when checked in
 
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
+                    db.Vehicles.Add(vehicle);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
