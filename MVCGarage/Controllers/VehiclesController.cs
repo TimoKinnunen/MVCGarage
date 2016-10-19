@@ -15,17 +15,30 @@ namespace MVCGarage.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            var vehiclesToView = from v in db.Vehicles
-                                 select new VehicleOverview
-                                 {
-                                     Id = v.Id,
-                                     RegNo = v.RegistrationNumber,
-                                     TypeName = v.VehicleType.Type,
-                                     CheckInTime = v.StartParkingTime,
-                                     CheckOutTime = v.EndParkingTime,
-                                     IsInGarage = (v.EndParkingTime == null)
-                                 };
-            vehiclesToView = vehiclesToView.OrderBy(v => v.CheckInTime);
+            //var vehiclesToView = from v in db.Vehicles
+            //                     select new VehicleOverview
+            //                     {
+            //                         Id = v.Id,
+            //                         RegNo = v.RegistrationNumber,
+            //                         TypeName = v.VehicleType.Type,
+            //                         CheckInTime = v.StartParkingTime,
+            //                         CheckOutTime = v.EndParkingTime,
+            //                         IsInGarage = (v.EndParkingTime == null)
+            //                     };
+
+            var vehiclesToView = db.Vehicles
+                .OrderBy(v => v.StartParkingTime)
+                .Select (v =>  new VehicleOverview
+                {
+                    Id = v.Id,
+                    RegNo = v.RegistrationNumber,
+                    TypeName = v.VehicleType.Type,
+                    CheckInTime = v.StartParkingTime,
+                    CheckOutTime = v.EndParkingTime,
+                    IsInGarage = (v.EndParkingTime == null)
+                });
+
+            //vehiclesToView = vehiclesToView.OrderBy(v => v.CheckInTime);
             //var vehiclesToView = db.Vehicles;
             return View(vehiclesToView.ToList());
         }
