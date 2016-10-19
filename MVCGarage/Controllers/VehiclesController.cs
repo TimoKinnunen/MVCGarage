@@ -60,17 +60,25 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Find which vehicle type was selected in form
-                int vtId = 0;
-                int.TryParse(Request["VehicleType"], out vtId);
-                vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
-                // Time when checked in
-                vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
-                // 60 SEK/hour
-                vehicle.ParkingCostPerHour = 60;
-                db.Vehicles.Add(vehicle);
-                db.SaveChanges();
-
+                Vehicle existingVehicle = db.Vehicles.FirstOrDefault(v => v.RegistrationNumber == vehicle.RegistrationNumber);
+                if (existingVehicle != null)
+                {
+                    ViewBag.ErrorMessage = "Could not add this registration number " + vehicle.RegistrationNumber + ". A vehicle with same registration number is in garage.";
+                    return View(vehicle);
+                }
+                else
+                {
+                    // Find which vehicle type was selected in form
+                    int vtId = 0;
+                    int.TryParse(Request["VehicleType"], out vtId);
+                    vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
+                    // Time when checked in
+                    vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
+                    // 60 SEK/hour
+                    vehicle.ParkingCostPerHour = 60;
+                    db.Vehicles.Add(vehicle);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
