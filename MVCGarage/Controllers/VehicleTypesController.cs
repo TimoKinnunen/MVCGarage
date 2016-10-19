@@ -139,7 +139,7 @@ namespace MVCGarage.Controllers
             {
                 // Probably violation of referential integrity
                 ViewBag.ErrorMessage = "Could not delete this vehicle type. Probably because some vehicle has this type.";
-                            }
+            }
             return View(vehicleType);
         }
 
