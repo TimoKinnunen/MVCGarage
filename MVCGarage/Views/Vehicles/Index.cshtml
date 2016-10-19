@@ -1,89 +1,60 @@
-﻿@model IEnumerable<MVCGarage.Models.Vehicle>
-    @{
-        ViewBag.Title = "Checked in and checked out vehicles";
+﻿@*@model IEnumerable<MVCGarage.Models.Vehicle>*@
+@model IEnumerable<MVCGarage.Models.VehicleOverview>
+
+@{
+    ViewBag.Title = "Checked in and checked out vehicles";
+}
+
+<h2>Checked in and checked out vehicles</h2>
+
+<p>
+    @Html.ActionLink("Check in a new vehicle", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckInTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CheckOutTime)
+        </th>
+        <th>&nbsp;</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckInTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckOutTime)
+            </td>
+            <td>
+                @Html.ActionLink("Edit details", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("View details", "Details", new { id = item.Id }) |
+                @if (item.IsInGarage)
+                {
+                    @Html.ActionLink("Check out", "Delete", new { id = item.Id })
+                }
+                else
+                {
+                    @Html.ActionLink("Receipt", "Kvitto", new { id = item.Id })
+                }
+            </td>
+        </tr>
     }
 
-    <h2>Checked in and checked out vehicles</h2>
-
-    <p>
-        @Html.ActionLink("Check in", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.RegistrationNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VehicleType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartParkingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndParkingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParkingTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParkingCostPerHour)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParkingCost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfWheels)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BrandAndModel)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RegistrationNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VehicleType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartParkingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndParkingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParkingTime)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParkingCostPerHour)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParkingCost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfWheels)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BrandAndModel)
-                </td>
-                <td>
-
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Check out", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("Kvitto", "Kvitto", new { id = item.Id })
-                </td>
-            </tr>
-        }
-
-    </table>
+</table>

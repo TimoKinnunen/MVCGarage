@@ -15,7 +15,19 @@ namespace MVCGarage.Controllers
         // GET: Vehicles
         public ActionResult Index()
         {
-            return View(db.Vehicles.ToList());
+            var vehiclesToView = from v in db.Vehicles
+                                 select new VehicleOverview
+                                 {
+                                     Id = v.Id,
+                                     RegNo = v.RegistrationNumber,
+                                     TypeName = v.VehicleType.Type,
+                                     CheckInTime = v.StartParkingTime,
+                                     CheckOutTime = v.EndParkingTime,
+                                     IsInGarage = (v.EndParkingTime == null)
+                                 };
+            vehiclesToView = vehiclesToView.OrderBy(v => v.CheckInTime);
+            //var vehiclesToView = db.Vehicles;
+            return View(vehiclesToView.ToList());
         }
 
         // GET: Vehicles/Details/5
