@@ -60,12 +60,14 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                //time when checked in
-                //vehicle.StartParkingTime = DateTime.Now;
+                // Find which vehicle type was selected in form
+                int vtId = 0;
+                int.TryParse(Request["VehicleType"], out vtId);
+                vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
+                // Time when checked in
                 vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
-                vehicle.ParkingCostPerHour = 60; //60 SEK/hour
-                //time when checked in
-
+                // 60 SEK/hour
+                vehicle.ParkingCostPerHour = 60;
                 db.Vehicles.Add(vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");
