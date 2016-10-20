@@ -212,6 +212,68 @@ namespace MVCGarage.Controllers
             //need VehicleType.Type in View
         }
 
+        // GET: Vehicles/Details/5
+        public ActionResult Search(string searchBy, string Search)
+        {
+            IQueryable<VehicleOverview> vehiclesToView = null;
+            if (string.IsNullOrEmpty(searchBy) || string.IsNullOrEmpty(Search))
+            {
+                vehiclesToView = db.Vehicles
+                               .OrderBy(v => v.StartParkingTime)
+                               .Select(v => new VehicleOverview
+                               {
+                                   Id = v.Id,
+                                   RegNo = v.RegistrationNumber,
+                                   TypeName = v.VehicleType.Type,
+                                   CheckInTime = v.StartParkingTime,
+                                   CheckOutTime = v.EndParkingTime,
+                                   IsInGarage = (v.EndParkingTime == null)
+                               });
+                ViewBag.ErrorMessage = "Select radio button 'Registration number' or 'Vehicle type' and a search string. Try again.";
+            }
+
+            if (searchBy == "Registration number")
+            {
+                vehiclesToView = db.Vehicles
+                               .Where(v => v.RegistrationNumber.Contains(Search))
+                               .OrderBy(v => v.StartParkingTime)
+                               .Select(v => new VehicleOverview
+                               {
+                                   Id = v.Id,
+                                   RegNo = v.RegistrationNumber,
+                                   TypeName = v.VehicleType.Type,
+                                   CheckInTime = v.StartParkingTime,
+                                   CheckOutTime = v.EndParkingTime,
+                                   IsInGarage = (v.EndParkingTime == null)
+                               });
+            }
+
+            if (searchBy == "Vehicle type")
+            {
+                vehiclesToView = db.Vehicles
+                               .Where(v => v.VehicleType.Type.Contains(Search))
+                               .OrderBy(v => v.StartParkingTime)
+                               .Select(v => new VehicleOverview
+                               {
+                                   Id = v.Id,
+                                   RegNo = v.RegistrationNumber,
+                                   TypeName = v.VehicleType.Type,
+                                   CheckInTime = v.StartParkingTime,
+                                   CheckOutTime = v.EndParkingTime,
+                                   IsInGarage = (v.EndParkingTime == null)
+                               });
+            }
+            if (vehiclesToView.Count() == 0)
+            {
+                ViewBag.SearchMessage = "No vehicle(s) found. Try again.";
+            }
+            else
+            {
+                ViewBag.SearchMessage = vehiclesToView.Count() + " vehicle(s) found.";
+            }
+            return View(vehiclesToView.ToList());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
