@@ -42,7 +42,12 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            //return View(vehicle);
+
+            //need VehicleType.Type in View
+            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            return View(vehicleWithVehicleType);
+            //need VehicleType.Type in View
         }
 
         // GET: Vehicles/Create
@@ -97,7 +102,13 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            //return View(vehicle);
+            //this.HasRequired(t => t.QuoteResponse).WithMany(t => t.QuoteResponseItems).HasForeignKey(d => d.QuoteResponseID);
+
+            //need VehicleType.Type in View
+            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            return View(vehicleWithVehicleType);
+            //need VehicleType.Type in View
         }
 
         // POST: Vehicles/Edit/5
@@ -109,7 +120,32 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(vehicle).State = EntityState.Modified;
+                //db.Entry(vehicle).State = EntityState.Modified;
+
+                Vehicle existingVehicle = db.Vehicles.Find(vehicle.Id);
+
+                //referential integrity is difficult
+                //dirty
+                db.Vehicles.Remove(existingVehicle);
+
+                // Find which vehicle type was selected in form
+                int vtId = 0;
+                int.TryParse(Request["VehicleType"], out vtId);
+                vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
+
+                //if (vehicle.StartParkingTime != null && vehicle.EndParkingTime != null)
+                //{
+                //    if (vehicle.EndParkingTime >= vehicle.StartParkingTime)
+                //    {
+                //        vehicle.ParkingTime = vehicle.EndParkingTime - vehicle.StartParkingTime;
+
+                //        vehicle.ParkingCost = vehicle.ParkingCostPerHour * (int)((TimeSpan)vehicle.ParkingTime).TotalMinutes / 60;
+                //    }
+                //}
+
+                //dirty
+                db.Vehicles.Add(vehicle);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -128,7 +164,12 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            //return View(vehicle);
+
+            //need VehicleType.Type in View
+            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            return View(vehicleWithVehicleType);
+            //need VehicleType.Type in View
         }
 
         // POST: VehicleTypes/Delete/5
@@ -140,6 +181,7 @@ namespace MVCGarage.Controllers
             //db.Vehicles.Remove(vehicle);
 
             vehicle.EndParkingTime = DateTime.Now;
+
             vehicle.ParkingTime = vehicle.EndParkingTime - vehicle.StartParkingTime;
 
             vehicle.ParkingCost = vehicle.ParkingCostPerHour * (int)((TimeSpan)vehicle.ParkingTime).TotalMinutes / 60;
@@ -162,7 +204,12 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-            return View(vehicle);
+            //return View(vehicle);
+
+            //need VehicleType.Type in View
+            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            return View(vehicleWithVehicleType);
+            //need VehicleType.Type in View
         }
 
         protected override void Dispose(bool disposing)
