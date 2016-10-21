@@ -12,26 +12,29 @@ namespace MVCGarage.Models
         [Display(Name = "Registration number")]
         public string RegistrationNumber { get; set; }
 
+        public int VehicleTypeId { get; set; }
+
         [Display(Name = "Vehicle type")]
-        public VehicleType VehicleType { get; set; } //personbil, lastbil
+        virtual public VehicleType VehicleType { get; set; } //personbil, lastbil
 
         public string Color { get; set; }
 
         [Display(Name = "Checked in")]
         public DateTime? StartParkingTime { get; set; }
 
+        [DisplayFormat(NullDisplayText = "Not checked out yet")]
         [Display(Name = "Checked out")]
         public DateTime? EndParkingTime { get; set; }
 
+        [DisplayFormat(NullDisplayText = "Not checked out yet", DataFormatString = "{0:hh\\:mm}")]
         [Display(Name = "Parking time hh:mm")]
-        [DisplayFormat(DataFormatString = "{0:hh\\:mm}")]
         public TimeSpan? ParkingTime { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}")]
         [Display(Name = "Parking cost per hour")]
         public int? ParkingCostPerHour { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(NullDisplayText = "Not checked out yet", DataFormatString = "{0:c}")]
         [Display(Name = "Parking cost")]
         public int? ParkingCost { get; set; }
 

@@ -17,8 +17,8 @@ namespace MVCGarage.Models
         /// Type is the description for the vehicle type
         /// Type must be a unique string value with 3 to 30 characters
         /// </summary>
-        [Required(ErrorMessage ="Type is required."),
-            StringLength(30, MinimumLength = 3, ErrorMessage ="Type must be 3 to 30 characters long."), 
+        [Required(ErrorMessage = "Type is required."),
+            StringLength(30, MinimumLength = 3, ErrorMessage = "Type must be 3 to 30 characters long."),
             Index(IsUnique = true)]
         public string Type { get; set; }
     }

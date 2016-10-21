@@ -42,17 +42,18 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-            //return View(vehicle);
+            return View(vehicle);
 
             //need VehicleType.Type in View
-            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
-            return View(vehicleWithVehicleType);
+            //Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            //return View(vehicleWithVehicleType);
             //need VehicleType.Type in View
         }
 
         // GET: Vehicles/Create
         public ActionResult Create()
         {
+            ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type");
             return View();
         }
 
@@ -61,7 +62,7 @@ namespace MVCGarage.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,Color,StartParkingTime,EndParkingTime,ParkingTime,ParkingCostPerHour,ParkingCost,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
+        public ActionResult Create([Bind(Include = "Id,RegistrationNumber,VehicleTypeId,Color,StartParkingTime,EndParkingTime,ParkingTime,ParkingCostPerHour,ParkingCost,NumberOfWheels,BrandAndModel")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
@@ -74,11 +75,11 @@ namespace MVCGarage.Controllers
                 else
                 {
                     // Find which vehicle type was selected in form
-                    int vtId = 0;
-                    int.TryParse(Request["VehicleType"], out vtId);
-                    vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
+                    //int vtId = 0;
+                    //int.TryParse(Request["VehicleType"], out vtId);
+                    //vehicle.VehicleType = db.VehicleTypes.FirstOrDefault(vt => vt.Id == vtId);
                     // Time when checked in
-                    vehicle.StartParkingTime = DateTime.Now.AddHours(-1);
+                    vehicle.StartParkingTime = DateTime.Now;
                     // 60 SEK/hour
                     vehicle.ParkingCostPerHour = 60;
                     db.Vehicles.Add(vehicle);
@@ -86,7 +87,7 @@ namespace MVCGarage.Controllers
                 }
                 return RedirectToAction("Index");
             }
-
+            ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
             return View(vehicle);
         }
 
@@ -98,16 +99,20 @@ namespace MVCGarage.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Vehicle vehicle = db.Vehicles.Find(id);
+            db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
             if (vehicle == null)
             {
                 return HttpNotFound();
             }
-            //return View(vehicle);
+            int vtId = vehicle.VehicleType.Id;
+            ViewBag.SelectedVehicleId = vtId;
+            return View(vehicle);
+
             //this.HasRequired(t => t.QuoteResponse).WithMany(t => t.QuoteResponseItems).HasForeignKey(d => d.QuoteResponseID);
 
             //need VehicleType.Type in View
-            Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
-            return View(vehicleWithVehicleType);
+            //Vehicle vehicleWithVehicleType = db.Vehicles.Include(v => v.VehicleType).First(v => v.Id == id);
+            //return View(vehicleWithVehicleType);
             //need VehicleType.Type in View
         }
 
@@ -120,13 +125,13 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.Entry(vehicle).State = EntityState.Modified;
+                db.Entry(vehicle).State = EntityState.Modified;
 
-                Vehicle existingVehicle = db.Vehicles.Find(vehicle.Id);
+                //Vehicle existingVehicle = db.Vehicles.Find(vehicle.Id);
 
                 //referential integrity is difficult
                 //dirty
-                db.Vehicles.Remove(existingVehicle);
+                //db.Vehicles.Remove(existingVehicle);
 
                 // Find which vehicle type was selected in form
                 int vtId = 0;
@@ -144,7 +149,7 @@ namespace MVCGarage.Controllers
                 //}
 
                 //dirty
-                db.Vehicles.Add(vehicle);
+                //db.Vehicles.Add(vehicle);
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
