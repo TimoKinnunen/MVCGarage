@@ -9,7 +9,7 @@ namespace MVCGarage.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, Index(IsUnique = true)]
+        [Required, Index("IX_RegNoAndCheckOut", 1, IsUnique = true)]
         [StringLength(100)]
         [Display(Name = "Registration number")]
         public string RegistrationNumber { get; set; }
@@ -22,8 +22,9 @@ namespace MVCGarage.Models
         public string Color { get; set; }
 
         [Display(Name = "Checked in")]
-        public DateTime? StartParkingTime { get; set; }
+        public DateTime StartParkingTime { get; set; }
 
+        [Index("IX_RegNoAndCheckOut", 2, IsUnique = true)]
         [DisplayFormat(NullDisplayText = "Not checked out yet")]
         [Display(Name = "Checked out")]
         public DateTime? EndParkingTime { get; set; }

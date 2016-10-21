@@ -63,25 +63,21 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                Vehicle existingVehicle = db.Vehicles.FirstOrDefault(v => v.RegistrationNumber == vehicle.RegistrationNumber);
-                if (existingVehicle != null)
+                // Time when checked in
+                vehicle.StartParkingTime = DateTime.Now;
+                // 60 SEK/hour
+                vehicle.ParkingCostPerHour = 60;
+                db.Vehicles.Add(vehicle);
+                try
                 {
-                    //ViewBag.ErrorMessage = "Could not add this registration number " + vehicle.RegistrationNumber + ". A vehicle with same registration number is in garage.";
-                    ModelState.AddModelError("RegistrationNumber", "Could not add this registration number " + vehicle.RegistrationNumber + ". A vehicle with same registration number is in garage.");
-                    ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
-                    return View(vehicle);
-                }
-                else
-                {
-
-                    // Time when checked in
-                    vehicle.StartParkingTime = DateTime.Now;
-                    // 60 SEK/hour
-                    vehicle.ParkingCostPerHour = 60;
-                    db.Vehicles.Add(vehicle);
                     db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                catch (DbUpdateException)
+                {
+                    // Probably a violation of unique index for column RegistrationNumber
+                    ModelState.AddModelError("RegistrationNumber", "Could not save to database. Probably because a vehicle with this registration number is in the garage.");
+                }
             }
             ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
             return View(vehicle);
@@ -100,10 +96,8 @@ namespace MVCGarage.Controllers
             {
                 return HttpNotFound();
             }
-
             ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
             return View(vehicle);
-
         }
 
         // POST: Vehicles/Edit/5
@@ -115,28 +109,17 @@ namespace MVCGarage.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Vehicle existingVehicle = db.Vehicles.FirstOrDefault(v => v.RegistrationNumber == vehicle.RegistrationNumber);
-                //if (existingVehicle != null)
-                //{
-                //    ViewBag.ErrorMessage = "Invalid registration number " + vehicle.RegistrationNumber + ". A vehicle with same registration number is in garage.";
-                //    ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
-                //    return View(vehicle);
-                //}
-                //else
-                //{
-                    db.Entry(vehicle).State = EntityState.Modified;
-                    try
-                    {
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                    catch (DbUpdateException)
-                    {
-                        // Probably a violation of unique index for column RegistrationNumber
-                        ModelState.AddModelError("RegistrationNumber", "Could not save to database. Probably because this registration number already exists.");
-                    }
-
-                //}
+                db.Entry(vehicle).State = EntityState.Modified;
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateException)
+                {
+                    // Probably a violation of unique index for column RegistrationNumber
+                    ModelState.AddModelError("RegistrationNumber", "Could not save to database. Probably because a vehicle with this registration number is in the garage.");
+                }
             }
             ViewBag.VehicleTypeId = new SelectList(db.VehicleTypes, "Id", "Type", vehicle.VehicleTypeId);
             return View(vehicle);
