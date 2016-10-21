@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MVCGarage.Models
 {
@@ -8,7 +9,8 @@ namespace MVCGarage.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required, Index(IsUnique = true)]
+        [StringLength(100)]
         [Display(Name = "Registration number")]
         public string RegistrationNumber { get; set; }
 

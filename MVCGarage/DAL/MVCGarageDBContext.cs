@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace MVCGarage.DAL
 {
@@ -10,5 +11,10 @@ namespace MVCGarage.DAL
         }
         public DbSet<Models.Vehicle> Vehicles { get; set; }
         public DbSet<Models.VehicleType> VehicleTypes { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+        }
     }
 }
