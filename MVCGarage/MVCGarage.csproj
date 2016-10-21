@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\GarageStatisticsController.cs" />
     <Compile Include="Controllers\Vehicles2Controller.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Controllers\VehicleTypesController.cs" />
@@ -140,6 +141,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Vehicle.cs" />
+    <Compile Include="ViewModels\GarageStatistics.cs" />
     <Compile Include="ViewModels\VehicleOverview.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -207,6 +209,7 @@
     <Content Include="Views\Vehicles2\Details.cshtml" />
     <Content Include="Views\Vehicles2\Edit.cshtml" />
     <Content Include="Views\Vehicles2\Index.cshtml" />
+    <Content Include="Views\GarageStatistics\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
