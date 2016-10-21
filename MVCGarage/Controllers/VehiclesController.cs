@@ -212,7 +212,7 @@ namespace MVCGarage.Controllers
             //need VehicleType.Type in View
         }
 
-        // GET: Vehicles/Details/5
+        // GET: Vehicles/Search
         public ActionResult Search(string searchBy, string Search)
         {
             IQueryable<VehicleOverview> vehiclesToView = null;
