@@ -21,11 +21,12 @@ namespace MVCGarage.Models
 
         public string Color { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:g}")] //g Default date & time 10/12/2002 10:11 PM
         [Display(Name = "Checked in")]
         public DateTime StartParkingTime { get; set; }
 
         [Index("IX_RegNoAndCheckOut", 2, IsUnique = true)]
-        [DisplayFormat(NullDisplayText = "Not checked out yet")]
+        [DisplayFormat(NullDisplayText = "Not checked out yet", DataFormatString = "{0:g}")] //g Default date & time 10/12/2002 10:11 PM
         [Display(Name = "Checked out")]
         public DateTime? EndParkingTime { get; set; }
 
@@ -33,7 +34,7 @@ namespace MVCGarage.Models
         [Display(Name = "Parking time hh:mm")]
         public TimeSpan? ParkingTime { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:c}")]
+        [DisplayFormat(DataFormatString = "{0:g}")] //g Default date & time 10/12/2002 10:11 PM
         [Display(Name = "Parking cost per hour")]
         public int? ParkingCostPerHour { get; set; }
 

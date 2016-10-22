@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/MVCGarage/Migrations/201610220746404_Init.cs
